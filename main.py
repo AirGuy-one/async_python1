@@ -4,17 +4,20 @@ import asyncio
 
 
 async def blink(canvas):
+
+    list_of_symbols = ["*", "+", "•"]
+
     window_tmp = curses.initscr()
 
     x_max, y_max = window_tmp.getmaxyx()
 
     canvas.border()
     curses.curs_set(False)
-    symbol = "*"
 
     async def tmp():
         row = random.randint(1, x_max - 1)
         column = random.randint(1, y_max - 1)
+        symbol = random.choice(list_of_symbols)
 
         while True:
             canvas.addstr(row, column, symbol, curses.A_DIM)
@@ -33,12 +36,11 @@ async def blink(canvas):
             canvas.refresh()
             await asyncio.sleep(0.3)
 
-    for i in range(30):
-        wait_time = random.uniform(0.4, 2)
+    for i in range(50):
+        wait_time = random.uniform(0.2, 0.5)
         asyncio.create_task(tmp())
         await asyncio.sleep(wait_time)
     
-
 
 if __name__ == '__main__':
     curses.update_lines_cols()
