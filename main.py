@@ -13,10 +13,10 @@ async def blink(canvas):
     symbol = "*"
 
     async def tmp():
-        while True:
-            row = random.randint(1, x_max - 1)
-            column = random.randint(1, y_max - 1)
+        row = random.randint(1, x_max - 1)
+        column = random.randint(1, y_max - 1)
 
+        while True:
             canvas.addstr(row, column, symbol, curses.A_DIM)
             canvas.refresh()
             await asyncio.sleep(2)
@@ -33,15 +33,11 @@ async def blink(canvas):
             canvas.refresh()
             await asyncio.sleep(0.3)
 
-            
-
-    asyncio.create_task(tmp())
-    asyncio.create_task(tmp())
-    asyncio.create_task(tmp())
-    asyncio.create_task(tmp())
-    asyncio.create_task(tmp())
+    for i in range(30):
+        wait_time = random.uniform(0.4, 2)
+        asyncio.create_task(tmp())
+        await asyncio.sleep(wait_time)
     
-
 
 
 if __name__ == '__main__':
