@@ -72,14 +72,6 @@ async def blink(canvas):
     # canvas.addstr(6, 34, 's')
     # canvas.addstr(6 + rocket_frame_y - 1, 34 + rocket_frame_x - 1, 's')
 
-    """ Here we init 4 pairs(x, y) to coordinates of 4 corners """
-    rows, columns = 0, 0
-    corner_x_right = 5 + 1 + rows + rocket_frame_x - 1
-    corner_x_left = 5 + 1 + rows
-    corner_y_right = 30 + 4 + columns + rocket_frame_y - 1
-    corner_y_left = 30 + 4 + columns
-    canvas.addstr(2, 4, str(corner_x_right) + " " + str(corner_x_left) + " " + str(corner_y_right) + " " + str(corner_y_left))
-
     async def rocket():
         rows_direction, columns_direction, space_pressed = 0, 0, False
         rows, columns = 0, 0
@@ -87,13 +79,26 @@ async def blink(canvas):
         while True:
             read_var = read_controls(canvas)
 
-            """ Here we need to check that rocket is in play field """
             """ Here we indefinitely check that any button is pressed """
             if read_var[0] != -200:
                 rows_direction, columns_direction, space_pressed = read_var
                 rows += rows_direction
                 columns += columns_direction
                 await asyncio.sleep(0)
+
+            """ Here we need to check that rocket is in play field and if it is not in field we return it back """
+            corner_x_right = 5 + 1 + rows + rocket_frame_x - 1
+            corner_x_left = 5 + 1 + rows
+            corner_y_right = 30 + 4 + columns + rocket_frame_y - 1
+            corner_y_left = 30 + 4 + columns
+            if corner_x_left <= 0:
+                rows += 1
+            elif corner_x_right >= x_max:
+                rows -= 1
+            elif corner_y_left <= 0:
+                columns += 1
+            elif corner_y_right >= y_max:
+                columns -= 1
 
             draw_frame(canvas, 5 + rows, 30 + columns, rocket_frame1)
             canvas.refresh()
