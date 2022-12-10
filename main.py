@@ -120,12 +120,6 @@ async def blink(canvas):
             canvas.addstr(9 + rows, 34 + columns, some_text)
             await asyncio.sleep(0)
 
-            """ Here we check the status of the rows_direction and columns_direction variables in the code """
-            # finish = str(rows_direction) + " and " + str(columns_direction)
-            # canvas.addstr(10, 40, finish)
-            # canvas.refresh()
-            # await asyncio.sleep(0)
-
     asyncio.create_task(rocket())
 
     """ Here we drawing the stars """
