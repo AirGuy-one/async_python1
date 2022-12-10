@@ -33,7 +33,9 @@ async def blink(canvas):
 
     window_tmp = curses.initscr()
 
+    """ Here we get info about sizes of screen """
     x_max, y_max = window_tmp.getmaxyx()
+    canvas.addstr(1, 2, str(x_max) + " " + str(y_max) + " is size of screen")
 
     canvas.border()
     curses.curs_set(False)
@@ -61,12 +63,22 @@ async def blink(canvas):
             await asyncio.sleep(0.3)
 
     """ Here we get info about sizes of rocket """
-    # rocket_frame_x, rocket_frame_y = get_frame_size(rocket_frame1)
-
+    rocket_frame_x, rocket_frame_y = get_frame_size(rocket_frame1)
+    rocket_frame_x = int(rocket_frame_x / 2)
 
     """ Here we specify that process still running instead of we dont click any keyboard button """
     canvas.nodelay(True)
 
+    # canvas.addstr(6, 34, 's')
+    # canvas.addstr(6 + rocket_frame_y - 1, 34 + rocket_frame_x - 1, 's')
+
+    """ Here we init 4 pairs(x, y) to coordinates of 4 corners """
+    rows, columns = 0, 0
+    corner_x_right = 5 + 1 + rows + rocket_frame_x - 1
+    corner_x_left = 5 + 1 + rows
+    corner_y_right = 30 + 4 + columns + rocket_frame_y - 1
+    corner_y_left = 30 + 4 + columns
+    canvas.addstr(2, 4, str(corner_x_right) + " " + str(corner_x_left) + " " + str(corner_y_right) + " " + str(corner_y_left))
 
     async def rocket():
         rows_direction, columns_direction, space_pressed = 0, 0, False
@@ -75,7 +87,7 @@ async def blink(canvas):
         while True:
             read_var = read_controls(canvas)
 
-
+            """ Here we need to check that rocket is in play field """
             """ Here we indefinitely check that any button is pressed """
             if read_var[0] != -200:
                 rows_direction, columns_direction, space_pressed = read_var
@@ -103,16 +115,15 @@ async def blink(canvas):
             canvas.addstr(9 + rows, 34 + columns, some_text)
             await asyncio.sleep(0)
 
-
             """ Here we check the status of the rows_direction and columns_direction variables in the code """
             # finish = str(rows_direction) + " and " + str(columns_direction)
             # canvas.addstr(10, 40, finish)
             # canvas.refresh()
             # await asyncio.sleep(0)
 
-
     asyncio.create_task(rocket())
 
+    """ Here we drawing the stars """
     for i in range(40):
         wait_time = random.uniform(0.05, 0.15)
         asyncio.create_task(tmp())
