@@ -1,7 +1,7 @@
 import random
 import curses
 import asyncio
-from addition_func import read_controls, draw_frame, get_frame_size, fire
+from rocket_options import read_controls, draw_frame, get_frame_size, fire
 
 
 rocket_frame1 = """
