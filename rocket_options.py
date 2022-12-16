@@ -1,26 +1,20 @@
-import random
 import curses
 import asyncio
 
-
 SPACE_KEY_CODE = 32
+# Here we're init wasd buttons
 LEFT_KEY_CODE = 97
 RIGHT_KEY_CODE = 100
-UP_KEY_CODE = 119 #w
-DOWN_KEY_CODE = 115 #s
+UP_KEY_CODE = 119
+DOWN_KEY_CODE = 115
 
 
 def read_controls(canvas):
-    """Read keys pressed and returns tuple witl controls state."""
-    
+    """Read keys pressed and returns tuple with controls state."""
     rows_direction = columns_direction = 0
     space_pressed = False
 
     pressed_key_code = canvas.getch()
-
-    # if pressed_key_code == 81:
-    #     # https://docs.python.org/3/library/curses.html#curses.window.getch
-    #     return -200, 0, False
 
     if pressed_key_code == UP_KEY_CODE:
         rows_direction = -1
@@ -35,13 +29,10 @@ def read_controls(canvas):
     else:
         return -200, 0, False
 
-    
     return rows_direction, columns_direction, space_pressed
 
 
 def draw_frame(canvas, start_row, start_column, text, negative=False):
-    """Draw multiline text fragment on canvas, erase text instead of drawing if negative=True is specified."""
-
     rows_number, columns_number = canvas.getmaxyx()
 
     for row, line in enumerate(text.splitlines(), round(start_row)):
@@ -61,7 +52,8 @@ def draw_frame(canvas, start_row, start_column, text, negative=False):
             if symbol == ' ':
                 continue
 
-            # Check that current position it is not in a lower right corner of the window
+            # Check that current position it is not
+            # in a lower right corner of the window
             # Curses will raise exception in that case. Don`t ask why…
             # https://docs.python.org/3/library/curses.html#curses.window.addch
             if row == rows_number - 1 and column == columns_number - 1:
@@ -70,17 +62,18 @@ def draw_frame(canvas, start_row, start_column, text, negative=False):
             symbol = symbol if not negative else ' '
             canvas.addch(row, column, symbol)
 
-def get_frame_size(text):
-    """ Calculate size of multiline text fragment, return pair — number of rows and columns. """
 
+def get_frame_size(text):
     lines = text.splitlines()
     rows = len(lines)
     columns = max([len(line) for line in lines])
     return rows, columns
 
-async def fire(canvas, start_row, start_column, rows_speed=-1, columns_speed=0):
-    """Display animation of gun shot, direction and speed can be specified."""
 
+async def fire(
+        canvas, start_row,
+        start_column, rows_speed=-1,
+        columns_speed=0):
     row, column = start_row, start_column
 
     canvas.addstr(round(row), round(column), '*')

@@ -1,7 +1,7 @@
 import random
 import curses
 import asyncio
-from rocket_options import read_controls, draw_frame, get_frame_size, fire
+from rocket_options import read_controls, draw_frame, get_frame_size
 
 
 rocket_frame1 = """
@@ -66,7 +66,8 @@ async def blink(canvas):
     rocket_frame_x, rocket_frame_y = get_frame_size(rocket_frame1)
     rocket_frame_x = int(rocket_frame_x / 2)
 
-    """ Here we specify that process still running instead of we dont click any keyboard button """
+    """ Here we specify that process still running
+    instead of we dont click any keyboard button """
     canvas.nodelay(True)
 
     # canvas.addstr(6, 34, 's')
@@ -86,7 +87,8 @@ async def blink(canvas):
                 columns += columns_direction
                 await asyncio.sleep(0)
 
-            """ Here we need to check that rocket is in play field and if it is not in field we return it back """
+            """ Here we need to check that rocket is in play field and
+            if it is not in field we return it back """
             corner_x_right = 5 + 1 + rows + rocket_frame_x - 1
             corner_x_left = 5 + 1 + rows
             corner_y_right = 30 + 4 + columns + rocket_frame_y - 1
@@ -104,7 +106,8 @@ async def blink(canvas):
             canvas.refresh()
             await asyncio.sleep(0.08)
 
-            draw_frame(canvas, 5 + rows, 30 + columns, rocket_frame1, negative=True)
+            draw_frame(canvas, 5 + rows, 30 + columns,
+                       rocket_frame1, negative=True)
             canvas.refresh()
             await asyncio.sleep(0)
 
@@ -112,7 +115,8 @@ async def blink(canvas):
             canvas.refresh()
             await asyncio.sleep(0.08)
 
-            draw_frame(canvas, 5 + rows, 30 + columns, rocket_frame2, negative=True)
+            draw_frame(canvas, 5 + rows, 30 + columns,
+                       rocket_frame2, negative=True)
             canvas.refresh()
             await asyncio.sleep(0)
 
@@ -129,13 +133,13 @@ async def blink(canvas):
         await asyncio.sleep(wait_time)
 
 
-    ## "FIRE IS GOING" BUTTON ACTION
-    # asyncio.create_task(fire(canvas, 5, 36))
-
-
-if __name__ == '__main__':
+def main():
     curses.update_lines_cols()
 
     main_loop = asyncio.get_event_loop()
     main_loop.run_until_complete(curses.wrapper(blink))
     main_loop.run_forever()
+
+
+if __name__ == '__main__':
+    main()
