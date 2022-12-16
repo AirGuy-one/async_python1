@@ -54,11 +54,10 @@ async def blink(canvas):
         rows, columns = 0, 0
 
         while True:
-            read_var = read_controls(canvas)
+            rows_direction, columns_direction, space_pressed = read_controls(canvas)
 
             # Here we indefinitely check that any button is pressed
-            if read_var[0] != -200:
-                rows_direction, columns_direction, space_pressed = read_var
+            if rows_direction != -200:
                 rows += rows_direction
                 columns += columns_direction
                 await asyncio.sleep(0)
