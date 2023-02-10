@@ -4,16 +4,15 @@ import asyncio
 
 from rocket_options import get_frame_size, display_rocket
 from rocket_pictures import rocket_frame1
+from stars_options import draw_one_star
 
 
 async def blink(canvas):
 
     list_of_symbols = ["*", "+", "•"]
 
-    window_tmp = curses.initscr()
-
     # Here we get info about sizes of screen
-    window_width, window_height = window_tmp.getmaxyx()
+    window_width, window_height = canvas.getmaxyx()
 
     canvas.border()
     curses.curs_set(False)
