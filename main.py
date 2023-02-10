@@ -7,7 +7,7 @@ from rocket_pictures import rocket_frame1
 from stars_options import draw_one_star
 
 
-async def blink(canvas):
+async def rocket_and_stars(canvas):
 
     list_of_symbols = ["*", "+", "•"]
 
@@ -42,7 +42,7 @@ def main():
     curses.update_lines_cols()
 
     main_loop = asyncio.get_event_loop()
-    main_loop.run_until_complete(curses.wrapper(blink))
+    main_loop.run_until_complete(curses.wrapper(rocket_and_stars))
     main_loop.run_forever()
 
 
