@@ -2,7 +2,7 @@ import random
 import curses
 import asyncio
 
-from rocket_options import get_frame_size, display_rocket
+from rocket_abilities import get_frame_size, display_rocket
 from rocket_pictures import rocket_frame1
 from stars_options import draw_one_star
 
