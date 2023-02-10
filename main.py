@@ -33,9 +33,8 @@ async def rocket_and_stars(canvas):
     for i in range(40):
         wait_time = random.uniform(0.05, 0.15)
         asyncio.create_task(
-            draw_one_star(window_width, window_height, list_of_symbols, canvas)
+            draw_one_star(window_width, window_height, list_of_symbols, canvas, wait_time)
         )
-        await asyncio.sleep(wait_time)
 
 
 def main():
