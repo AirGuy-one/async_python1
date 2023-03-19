@@ -123,11 +123,13 @@ async def display_rocket(canvas, rocket_frame_x, rocket_frame_y, window_width, w
         # To do it we determine the coordinates of corners of rocket
         # To determine the coordinates we
         y_edge_indent = 5
-        x_edge_indent = 30
-        top = y_edge_indent + rows + 1
-        bottom = y_edge_indent + rows + rocket_frame_y + 1
-        left = x_edge_indent + columns + 4
-        right = x_edge_indent + columns + rocket_frame_x + 4
+        x_edge_indent = 10
+        line_should_be_considered = 1
+        top = y_edge_indent + rows + line_should_be_considered
+        bottom = y_edge_indent + rows + rocket_frame_y + line_should_be_considered
+        indent_in_the_picture_of_rocket = 4
+        left = x_edge_indent + columns + indent_in_the_picture_of_rocket
+        right = x_edge_indent + columns + rocket_frame_x + indent_in_the_picture_of_rocket
         if top <= 0:
             rows += 1
         elif bottom >= window_width:
