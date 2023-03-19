@@ -122,33 +122,35 @@ async def display_rocket(canvas, rocket_frame_x, rocket_frame_y, window_width, w
         # if it is not in field we return it back
         # To do it we determine the coordinates of corners of rocket
         # To determine the coordinates we
-        rocket_corner_x_right = 5 + 1 + rows + rocket_frame_x - 1
-        rocket_corner_x_left = 5 + 1 + rows
-        rocket_corner_y_right = 30 + 4 + columns + rocket_frame_y - 1
-        rocket_corner_y_left = 30 + 4 + columns
-        if rocket_corner_x_left <= 0:
+        y_edge_indent = 5
+        x_edge_indent = 30
+        top = y_edge_indent + rows + 1
+        bottom = y_edge_indent + rows + rocket_frame_y + 1
+        left = x_edge_indent + columns + 4
+        right = x_edge_indent + columns + rocket_frame_x + 4
+        if top <= 0:
             rows += 1
-        elif rocket_corner_x_right >= window_width:
+        elif bottom >= window_width:
             rows -= 1
-        elif rocket_corner_y_left <= 0:
+        elif left <= 0:
             columns += 1
-        elif rocket_corner_y_right >= window_height:
+        elif right >= window_height:
             columns -= 1
 
-        draw_frame(canvas, 5 + rows, 30 + columns, rocket_frame1)
+        draw_frame(canvas, y_edge_indent + rows, x_edge_indent + columns, rocket_frame1)
         canvas.refresh()
         await asyncio.sleep(0.08)
 
-        draw_frame(canvas, 5 + rows, 30 + columns,
+        draw_frame(canvas, y_edge_indent + rows, x_edge_indent + columns,
                    rocket_frame1, negative=True)
         canvas.refresh()
         await asyncio.sleep(0)
 
-        draw_frame(canvas, 5 + rows, 30 + columns, rocket_frame2)
+        draw_frame(canvas, y_edge_indent + rows, x_edge_indent + columns, rocket_frame2)
         canvas.refresh()
         await asyncio.sleep(0.08)
 
-        draw_frame(canvas, 5 + rows, 30 + columns,
+        draw_frame(canvas, y_edge_indent + rows, x_edge_indent + columns,
                    rocket_frame2, negative=True)
         canvas.refresh()
         await asyncio.sleep(0)
